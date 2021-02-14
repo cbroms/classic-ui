@@ -31,3 +31,12 @@
     {/if}
   {/each}
 </div>
+
+<style>
+  .content {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 700px;
+    width: 100%;
+  }
+</style>

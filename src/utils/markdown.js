@@ -38,14 +38,23 @@ renderer.image = (href, title, text) => {
     if (!fs.existsSync(imageDir)){
         fs.mkdirSync(imageDir);
         // TODO check that the images exist (this assumes they do not!)
-        sharp(pathToInput).resize(30).toFile(path.resolve(imageDir + "/tiny.webp"))
-        // create a thumbnail version of the image
-         sharp(pathToInput).resize(200).toFile(path.resolve(imageDir + "/thumbnail.webp"))
-        // create a big version of the image 
-         sharp(pathToInput).resize(900).toFile(path.resolve(imageDir + "/large.webp"))
+        sharp(pathToInput).resize(30).toFile(path.resolve(imageDir + "/tiny.png"))
+
+        sharp(pathToInput).resize(500).toFile(path.resolve(imageDir + "/medium.webp"))
+        sharp(pathToInput).resize(800).toFile(path.resolve(imageDir + "/large.webp"))
+
+        sharp(pathToInput).resize(500).toFile(path.resolve(imageDir + "/medium.jpg"))
+        sharp(pathToInput).resize(800).toFile(path.resolve(imageDir + "/large.jpg"))
     }
 
-    images.push({href, title, text, tiny: initialImageDir + "/tiny.webp", thumbnail: initialImageDir + "/thumbnail.webp", large: initialImageDir + "/large.webp"})
+    images.push({
+            href, 
+            title, 
+            text, 
+            tiny: initialImageDir + "/tiny.png", 
+            medium: {webp: initialImageDir + "/medium.webp", jpg: initialImageDir + "/medium.webp" }, 
+            large: {webp: initialImageDir + "/large.webp", jpg: initialImageDir + "/large.webp" }, 
+        })
     return "<img />"
 }
 

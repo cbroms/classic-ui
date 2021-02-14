@@ -6,36 +6,55 @@
 
   const onLoad = () => {
     loaded = true;
+
+    // remove the inital after the load in/out animation is complete
     setTimeout(() => {
       initial = false;
     }, 1000);
   };
 </script>
 
-<div class="image">
-  {#if initial}
-    <img class="initial" class:unloaded={loaded} src={image.tiny} />
-  {/if}
-  <picture>
-    <source
-      type="image/webp"
-      srcset="{image.thumbnail} 375w, {image.thumbnail} 768w, {image.large} 1024w"
-    />
-    <img class="final" alt="fuji" on:load={onLoad} class:loaded />
-  </picture>
-</div>
+<figure>
+  <a class="image" href={image.href}>
+    {#if initial}
+      <img
+        class="initial"
+        class:unloaded={loaded}
+        alt={image.text}
+        src={image.tiny}
+      />
+    {/if}
+    <picture>
+      <source
+        type="image/webp"
+        srcset="{image.medium.webp} 400w, {image.large.webp}"
+      />
+      <source
+        type="image/jpg"
+        srcset="{image.medium.jpg} 400w, {image.large.jpg}"
+      />
+      <img class="final" alt={image.text} on:load={onLoad} class:loaded />
+    </picture>
+  </a>
+  <figcaption>{image.title}</figcaption>
+</figure>
 
 <style>
+  figure {
+    margin: 80px auto;
+  }
+
   img {
-    width: 700px;
-    max-width: 100%;
+    width: 100%;
   }
 
   .image {
+    width: 700px;
+    max-width: 100%;
+    margin-bottom: 10px;
     display: grid;
     grid-template: 1fr / 1fr;
     place-items: center;
-    margin: 80px auto;
   }
 
   .image > * {
