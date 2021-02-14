@@ -2,7 +2,8 @@ import posts from './ui/_posts.js';
 
 const contents = JSON.stringify(posts.map(post => {
 	return {
-		title: post.title,
+        title: post.title,
+        image: post.image,
 		slug: post.slug
 	};
 }));

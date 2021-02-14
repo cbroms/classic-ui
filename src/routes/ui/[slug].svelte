@@ -25,9 +25,8 @@
 <div class="content">
   {#each post.html as section, i}
     {@html section}
-
     {#if i < post.images.length}
-      <Image image={post.images[i]} />
+      <Image image={post.images[i]} hasCaption />
     {/if}
   {/each}
 </div>

@@ -1,5 +1,6 @@
 <script>
   export let image;
+  export let hasCaption = false;
 
   let loaded = false;
   let initial = true;
@@ -15,7 +16,7 @@
 </script>
 
 <figure>
-  <a class="image" href={image.href}>
+  <a class="image" href={hasCaption ? image.href : null}>
     {#if initial}
       <img
         class="initial"
@@ -36,14 +37,15 @@
       <img class="final" alt={image.text} on:load={onLoad} class:loaded />
     </picture>
   </a>
-  <figcaption>{image.title}</figcaption>
+  {#if hasCaption && image.title}
+    <figcaption>{image.title}</figcaption>
+  {/if}
 </figure>
 
 <style>
   figure {
-    margin: 80px auto;
+    margin: 0;
   }
-
   img {
     width: 100%;
   }
@@ -63,7 +65,7 @@
   }
 
   .initial {
-    filter: blur(20px);
+    filter: blur(10px);
     z-index: 1;
   }
 
@@ -81,7 +83,7 @@
   @keyframes blur-out {
     from {
       opacity: 1;
-      filter: blur(20px);
+      filter: blur(10px);
     }
     to {
       opacity: 0;

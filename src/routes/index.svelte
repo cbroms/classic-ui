@@ -9,6 +9,7 @@
 </script>
 
 <script>
+  import Image from "../components/Image.svelte";
   export let posts;
 </script>
 
@@ -16,21 +17,27 @@
   <title>Blog</title>
 </svelte:head>
 
-<h1>Recent posts</h1>
-
-<ul>
+<div class="posts">
   {#each posts as post}
-    <!-- we're using the non-standard `rel=prefetch` attribute to
-				tell Sapper to load the data for the page as soon as
-				the user hovers over the link or taps it, instead of
-				waiting for the 'click' event -->
-    <li><a rel="prefetch" href="ui/{post.slug}">{post.title}</a></li>
+    <div class="post-preview">
+      <a href="/ui/{post.slug}">
+        <Image image={post.image} />
+      </a>
+    </div>
   {/each}
-</ul>
+</div>
 
 <style>
-  ul {
-    margin: 0 0 1em 0;
-    line-height: 1.5;
+  .posts {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .post-preview {
+    width: 300px;
+    margin: 20px;
   }
 </style>
