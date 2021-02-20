@@ -9,7 +9,11 @@
 
     if (r.status === 200) {
       const json = await r.json();
-      const res = { ...json, pageNum: parseInt(pageNum) };
+      const res = {
+        ...json,
+        pageNum: parseInt(pageNum),
+        query: { year, os, elts },
+      };
       return { res };
     }
 
@@ -18,6 +22,7 @@
 </script>
 
 <script>
+  import Filters from "../components/Filters.svelte";
   import Image from "../components/Image.svelte";
   export let res;
 </script>
@@ -26,6 +31,7 @@
   <title>Blog</title>
 </svelte:head>
 
+<Filters filters={res.filters} query={res.query} />
 <div class="posts">
   {#if res.message}
     <div class="no-results">

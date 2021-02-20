@@ -13,18 +13,27 @@ const osLookup = {}
 // lookup for elt (slugified) -> [slugs]
 const eltsLookup = {}
 
+// all the filter options 
+const filters = {
+    year: new Set(),
+    os: new Set(),
+    elts: new Set(),
+}
+
 const contents = posts.map(post => {
     // add the slug to the lookup tables 
     if (post.year) {
+        filters.year.add(post.year)
         yearLookup[post.year] = yearLookup[post.year] ? [...yearLookup[post.year], post.slug] : [post.slug]
     }
     if (post.os) {
         const os = slugify(post.os)
-        console.log(os)
+        filters.os.add(post.os)
         osLookup[os] = osLookup[os] ? [...osLookup[os], post.slug] : [post.slug]
     }
     if (post.elts) {
         for (let elt of post.elts) {
+            filters.elts.add(elt)
             elt = slugify(elt)
             eltsLookup[elt] = eltsLookup[elt] ? [...eltsLookup[elt], post.slug] : [post.slug]
         }
@@ -36,17 +45,33 @@ const contents = posts.map(post => {
 
 
 const getMatching = (year, os, elts) => {
-    if (!year && !os && !elts) return contents;
+
+    if (year === "undefined" && os === "undefined" && elts.length === 0) return contents;
+
+    // the number of times each result has appeared 
+    const rankLookup = {}
+
+    const toRankLookup = (results) => {
+        // add results to ranking 
+        return results.map(slug => {
+            rankLookup[slug] = rankLookup[slug] ? rankLookup[slug] + 1 : 1
+            return slug
+        })
+    }
 
     // lookup with year, os, and elements
-    const matchingYear = yearLookup[year] || [];
-    const matchingOs = osLookup[os] || [];
+    const matchingYear = toRankLookup(yearLookup[year] || [])
+    const matchingOs = toRankLookup(osLookup[os] || [])
     let matchingElts = []
     for (const elt of elts) {
         matchingElts = eltsLookup[elt] ? [...matchingElts, ...eltsLookup[elt]] : []
     }
+    toRankLookup(matchingElts)
+
     // remove all dupes 
-   return [...new Set([...new Set(matchingElts), ...matchingYear, ...matchingOs])]
+   const results = [...new Set([...new Set(matchingElts), ...matchingYear, ...matchingOs])]
+   // sort by number of times each has appeared 
+   return results.sort((a, b) => rankLookup[a] < rankLookup[b]);
 }
 
 export function get(req, res) {
@@ -54,7 +79,8 @@ export function get(req, res) {
     const { year, os, elts} = req.query;
     const { pageNum } = req.params;
 
-    const elements = elts !== undefined ? elts.split(",") : []
+    const elements = elts !== "undefined" ? elts.split(",") : []
+
     // get a list of slugs we could return 
     const matchingContent = getMatching(year, os, elements)
 
@@ -68,7 +94,7 @@ export function get(req, res) {
     });
 
     if (posts !== undefined && posts.length > 0) {
-        res.end(JSON.stringify({posts, isNextPage}));
+        res.end(JSON.stringify({posts, isNextPage, filters: {year: [...filters.year], os: [...filters.os], elts: [...filters.elts]}}));
     } else {
         res.end(JSON.stringify({message: "No results"}));
     }
