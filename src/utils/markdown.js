@@ -73,7 +73,7 @@ export default () => ({
 
     const fileName = path.basename(id);
     const { data, content: rawContent } = matter(md);
-    const { title, date, image, category } = data;
+    const { title, date, image, elts, os, year, url } = data;
     const slug = fileName.split(".")[0];
     let content = rawContent;
 
@@ -90,8 +90,11 @@ export default () => ({
       html,
       images,
       date,
+      elts, 
+      os, 
+      year, 
+      url,
       image: mainImage,
-      category,
       printDate,
     });
 

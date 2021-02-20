@@ -1,9 +1,10 @@
 <script context="module">
   export async function preload(page) {
-    const pageNum = page.query.page;
+    const pageNum = page.query.page || 0;
+    const { year, os, elts } = page.query;
 
     const r = await this.fetch(
-      `${pageNum !== undefined && pageNum > 0 ? pageNum : 0}.json`
+      `${pageNum}.json?year=${year}&os=${os}&elts=${elts}`
     );
 
     if (r.status === 200) {
@@ -26,13 +27,20 @@
 </svelte:head>
 
 <div class="posts">
-  {#each res.posts as post}
-    <div class="post-preview">
-      <a href="/ui/{post.slug}">
-        <Image image={post.image} />
-      </a>
+  {#if res.message}
+    <div class="no-results">
+      <h2>No results!</h2>
+      <p>Couldn't find any interfaces matching your filters.</p>
     </div>
-  {/each}
+  {:else}
+    {#each res.posts as post}
+      <div class="post-preview">
+        <a href="/ui/{post.slug}">
+          <Image image={post.image} />
+        </a>
+      </div>
+    {/each}
+  {/if}
 </div>
 
 {#if res.pageNum > 0}
@@ -55,5 +63,10 @@
   .post-preview {
     width: 300px;
     margin: 20px;
+  }
+  .no-results {
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
   }
 </style>
