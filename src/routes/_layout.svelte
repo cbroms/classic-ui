@@ -7,8 +7,17 @@
     </picture>
   </a>
 </nav>
-
-<slot />
+<main>
+  <slot />
+</main>
+<footer>
+  <div>Built by <a href="https://christianbroms.com">Christian</a></div>
+  <div>
+    All Images &copy; their original owners, reproduced under <a
+      href="https://en.wikipedia.org/wiki/Fair_use">fair use</a
+    >
+  </div>
+</footer>
 
 <style>
   nav {
@@ -16,8 +25,26 @@
     display: flex;
     justify-content: center;
   }
+
   .logo {
     max-width: 600px;
     width: 100%;
+  }
+
+  footer {
+    max-width: 1100px;
+    width: 100%;
+    margin: 40px auto 0 auto;
+    padding: 20px;
+
+    display: flex;
+  }
+
+  main {
+    min-height: 80vh;
+  }
+
+  footer > div {
+    margin-right: 40px;
   }
 </style>

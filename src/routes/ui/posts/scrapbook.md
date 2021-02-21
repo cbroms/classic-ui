@@ -1,8 +1,11 @@
 ---
-title: "Scrapbook"
-date: 2019-09-17
-category: "Artifact"
-image: "/images/scrapbook.png"
+title: Scrapbook
+os: MacOS System 6
+year: 1985
+elts: [Buttons]
+image: /images/scrapbook.png
+program: Scrapbook
+url: https://archive.org/details/mac_MacOS_6.0.8
 ---
 
-![this is something](/images/scrapbook.png)
+![The scrapbook app in MacOS 6.0.8](/images/scrapbook.png)

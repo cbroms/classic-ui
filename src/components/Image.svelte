@@ -1,4 +1,5 @@
 <script>
+  export let preview = false;
   export let image;
   export let hasCaption = false;
 
@@ -20,6 +21,7 @@
     {#if initial}
       <img
         class="initial"
+        class:preview
         class:unloaded={loaded}
         alt={image.text}
         src={image.tiny}
@@ -34,7 +36,13 @@
         type="image/jpg"
         srcset="{image.medium.jpg} 400w, {image.large.jpg}"
       />
-      <img class="final" alt={image.text} on:load={onLoad} class:loaded />
+      <img
+        class="final"
+        class:preview
+        alt={image.text}
+        on:load={onLoad}
+        class:loaded
+      />
     </picture>
   </a>
   {#if hasCaption && image.title}
@@ -48,6 +56,10 @@
   }
   img {
     width: 100%;
+  }
+
+  .preview {
+    max-height: 275px;
   }
 
   .image {

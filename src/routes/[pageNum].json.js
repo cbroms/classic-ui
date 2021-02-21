@@ -1,7 +1,7 @@
 import posts from './ui/_posts.js';
 import {slugify} from "../utils/slugify"
 
-const postsPerPage = 3;
+const postsPerPage = 8;
 
 // lookup for slug -> content 
 const allContent = {}
@@ -94,7 +94,7 @@ export function get(req, res) {
     });
 
     if (posts !== undefined && posts.length > 0) {
-        res.end(JSON.stringify({posts, isNextPage, filters: {year: [...filters.year], os: [...filters.os], elts: [...filters.elts]}}));
+        res.end(JSON.stringify({posts, isNextPage, numResults: matchingContent.length, filters: {year: [...filters.year], os: [...filters.os], elts: [...filters.elts]}}));
     } else {
         res.end(JSON.stringify({message: "No results"}));
     }

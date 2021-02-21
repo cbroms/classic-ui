@@ -2,9 +2,10 @@
 title: Control Panel
 os: MacOS System 6
 year: 1985
-elts: [Buttons, Sliders, Windows]
+program: Control Panel
+elts: [Buttons, Sliders]
 image: /images/control.png
 url: https://archive.org/details/mac_MacOS_6.0.8
 ---
 
-![this is something](/images/control.png "A control panel")
+![Control panel in MacOS 6.0.8](/images/control.png)

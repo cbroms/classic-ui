@@ -24,14 +24,15 @@
 <script>
   import Filters from "../components/Filters.svelte";
   import Image from "../components/Image.svelte";
+  import Pagination from "../components/Pagination.svelte";
   export let res;
 </script>
 
 <svelte:head>
-  <title>Blog</title>
+  <title>Classic Interfaces</title>
 </svelte:head>
 
-<Filters filters={res.filters} query={res.query} />
+<Filters filters={res.filters} query={res.query} results={res.numResults} />
 <div class="posts">
   {#if res.message}
     <div class="no-results">
@@ -42,32 +43,26 @@
     {#each res.posts as post}
       <div class="post-preview">
         <a href="/ui/{post.slug}">
-          <Image image={post.image} />
+          <Image image={post.image} preview />
         </a>
       </div>
     {/each}
   {/if}
 </div>
-
-{#if res.pageNum > 0}
-  <a href="/?page={res.pageNum - 1}">Prev page</a>
-{/if}
-
-{#if res.isNextPage}
-  <a href="/?page={res.pageNum + 1}">Next page</a>
-{/if}
+<Pagination isNextPage={res.isNextPage} pageNum={res.pageNum} />
 
 <style>
   .posts {
     max-width: 1100px;
     width: 100%;
-    margin: 0 auto;
+    margin: 40px auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
   }
   .post-preview {
-    width: 300px;
+    width: 326px;
     margin: 20px;
   }
   .no-results {
