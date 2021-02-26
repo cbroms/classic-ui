@@ -32,7 +32,12 @@
   <title>Classic Interfaces</title>
 </svelte:head>
 
-<Filters filters={res.filters} query={res.query} results={res.numResults} />
+<Filters
+  filters={res.filters}
+  query={res.query}
+  results={res.numResults}
+  total={res.totalEntries}
+/>
 <div class="posts">
   {#if res.message}
     <div class="no-results">

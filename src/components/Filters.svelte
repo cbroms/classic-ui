@@ -8,6 +8,12 @@
   export let results = 0;
 
   let open = false;
+  let randomNum = Math.floor(Math.random() * 6) + 1;
+
+  const closeFilters = () => {
+    open = !open;
+    randomNum = Math.floor(Math.random() * 6) + 1;
+  };
 
   const valueChanged = (e, ...args) => {
     if (!e.target.checked) {
@@ -50,46 +56,56 @@
 </script>
 
 {#if open}
-  <div class="filters" transition:slide>
+  <div
+    class="filters nice-background"
+    transition:slide
+    style="--background: url(backgrounds/{randomNum}.png)"
+  >
     <div class="filter-content">
       <div class="filter-item">
         <h3>Year Released</h3>
-        {#each filters.year as year}
-          <label>
-            <input
-              type="checkbox"
-              checked={query.year && query.year.includes(year)}
-              on:change={(e) => valueChanged(e, "year", year.toString())}
-            />
-            {year}
-          </label>
-        {/each}
+        <div class="filter-options">
+          {#each filters.year as year}
+            <label>
+              <input
+                type="checkbox"
+                checked={query.year && query.year.includes(year)}
+                on:change={(e) => valueChanged(e, "year", year.toString())}
+              />
+              {year}
+            </label>
+          {/each}
+        </div>
       </div>
       <div class="filter-item">
         <h3>Operating System</h3>
-        {#each filters.os as os}
-          <label>
-            <input
-              type="checkbox"
-              checked={query.os && query.os.includes(slugify(os))}
-              on:change={(e) => valueChanged(e, "os", slugify(os))}
-            />
-            {os}
-          </label>
-        {/each}
+        <div class="filter-options">
+          {#each filters.os as os}
+            <label>
+              <input
+                type="checkbox"
+                checked={query.os && query.os.includes(slugify(os))}
+                on:change={(e) => valueChanged(e, "os", slugify(os))}
+              />
+              {os}
+            </label>
+          {/each}
+        </div>
       </div>
       <div class="filter-item">
         <h3>UI Elements</h3>
-        {#each filters.elts as elt}
-          <label>
-            <input
-              type="checkbox"
-              checked={query.elts && query.elts.includes(slugify(elt))}
-              on:change={(e) => valueChanged(e, "elts", slugify(elt))}
-            />
-            {elt}
-          </label>
-        {/each}
+        <div class="filter-options">
+          {#each filters.elts as elt}
+            <label>
+              <input
+                type="checkbox"
+                checked={query.elts && query.elts.includes(slugify(elt))}
+                on:change={(e) => valueChanged(e, "elts", slugify(elt))}
+              />
+              {elt}
+            </label>
+          {/each}
+        </div>
       </div>
     </div>
   </div>
@@ -97,9 +113,7 @@
 
 <div class="filter-toggle-button">
   <div class="num-results">{results} interface{results === 1 ? "" : "s"}</div>
-  <button on:click={() => (open = !open)}
-    >{open ? "Browse results" : "Filter"}</button
-  >
+  <button on:click={closeFilters}>{open ? "Browse results" : "Filter"}</button>
 </div>
 
 <style>
@@ -116,7 +130,19 @@
   }
 
   .filter-item {
-    padding: 0px 20px;
+    background-color: white;
+    border: 2px solid;
+    width: 190px;
+  }
+
+  h3 {
+    margin: 0;
+    padding: 10px 20px;
+    border-bottom: 2px solid;
+  }
+
+  .filter-options {
+    padding: 0 20px;
   }
 
   .num-results {
@@ -124,11 +150,12 @@
   }
 
   .filter-content {
-    max-width: 1100px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   label {

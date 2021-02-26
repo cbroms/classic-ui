@@ -8,6 +8,7 @@ body {
 
 * {
   box-sizing: border-box;
+  --background: url(backgrounds/2.png);
 }
 
 label {
@@ -30,4 +31,10 @@ button:disabled {
   cursor: initial;
   box-shadow: 3px 3px rgb(230, 230, 230);
   border: 2px solid rgb(230, 230, 230);
+}
+
+.nice-background {
+  background-image: var(--background);
+  background-size: 15px;
+  background-repeat: repeat;
 }
