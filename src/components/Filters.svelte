@@ -8,11 +8,11 @@
   export let results = 0;
 
   let open = false;
-  let randomNum = Math.floor(Math.random() * 6) + 1;
+  let randomNum = Math.floor(Math.random() * 5) + 1;
 
   const closeFilters = () => {
     open = !open;
-    randomNum = Math.floor(Math.random() * 6) + 1;
+    randomNum = Math.floor(Math.random() * 5) + 1;
   };
 
   const valueChanged = (e, ...args) => {
@@ -62,34 +62,37 @@
     style="--background: url(backgrounds/{randomNum}.png)"
   >
     <div class="filter-content">
-      <div class="filter-item">
-        <h3>Year Released</h3>
-        <div class="filter-options">
-          {#each filters.year as year}
-            <label>
-              <input
-                type="checkbox"
-                checked={query.year && query.year.includes(year)}
-                on:change={(e) => valueChanged(e, "year", year.toString())}
-              />
-              {year}
-            </label>
-          {/each}
+      <div class="filter-content-stacked">
+        <div class="filter-item stacked">
+          <h3>Year Released</h3>
+          <div class="filter-options">
+            {#each filters.year as year}
+              <label>
+                <input
+                  type="checkbox"
+                  checked={query.year && query.year.includes(year)}
+                  on:change={(e) => valueChanged(e, "year", year.toString())}
+                />
+                {year}
+              </label>
+            {/each}
+          </div>
         </div>
-      </div>
-      <div class="filter-item">
-        <h3>Operating System</h3>
-        <div class="filter-options">
-          {#each filters.os as os}
-            <label>
-              <input
-                type="checkbox"
-                checked={query.os && query.os.includes(slugify(os))}
-                on:change={(e) => valueChanged(e, "os", slugify(os))}
-              />
-              {os}
-            </label>
-          {/each}
+
+        <div class="filter-item stacked">
+          <h3>Operating System</h3>
+          <div class="filter-options">
+            {#each filters.os as os}
+              <label>
+                <input
+                  type="checkbox"
+                  checked={query.os && query.os.includes(slugify(os))}
+                  on:change={(e) => valueChanged(e, "os", slugify(os))}
+                />
+                {os}
+              </label>
+            {/each}
+          </div>
         </div>
       </div>
       <div class="filter-item">
@@ -132,8 +135,19 @@
   .filter-item {
     background-color: white;
     border: 2px solid;
-    width: 190px;
+    width: 210px;
+    margin: 10px;
   }
+
+  .filter-content-stacked {
+    display: flex;
+    flex-wrap: wrap;
+    width: 210px;
+  }
+
+  /* .stacked:first-child {
+    margin-bottom: 20px;
+  } */
 
   h3 {
     margin: 0;

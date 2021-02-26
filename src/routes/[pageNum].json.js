@@ -1,7 +1,7 @@
 import posts from "./ui/_posts.js";
 import { slugify } from "../utils/slugify";
 
-const postsPerPage = 8;
+const postsPerPage = 9;
 
 // lookup for slug -> content
 const allContent = {};

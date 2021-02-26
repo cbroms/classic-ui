@@ -38,3 +38,7 @@ button:disabled {
   background-size: 15px;
   background-repeat: repeat;
 }
+
+a {
+  color: black;
+}
