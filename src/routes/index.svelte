@@ -1,10 +1,10 @@
 <script context="module">
   export async function preload(page) {
     const pageNum = page.query.page || 0;
-    const { year, os, elts } = page.query;
+    const { year, os, elts, progs } = page.query;
 
     const r = await this.fetch(
-      `${pageNum}.json?year=${year}&os=${os}&elts=${elts}`
+      `${pageNum}.json?year=${year}&os=${os}&elts=${elts}&progs=${progs}`
     );
 
     if (r.status === 200) {
@@ -12,7 +12,7 @@
       const res = {
         ...json,
         pageNum: parseInt(pageNum),
-        query: { year, os, elts },
+        query: { year, os, elts, progs },
       };
       return { res };
     }

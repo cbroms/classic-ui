@@ -26,6 +26,8 @@
 
   const addQueryToURL = (query, value) => {
     const newUrl = new URL(window.location);
+    // remove the page, so we don't try to get page n of some specific filter combination
+    newUrl.searchParams.delete("page");
     if (newUrl.searchParams.has(query)) {
       const currentValues = newUrl.searchParams.get(query).split(",");
       // remove the old query, add the new value to the existing list, then add the query back
@@ -95,6 +97,23 @@
           </div>
         </div>
       </div>
+
+      <div class="filter-item">
+        <h3>Program</h3>
+        <div class="filter-options">
+          {#each filters.progs as prog}
+            <label>
+              <input
+                type="checkbox"
+                checked={query.progs && query.progs.includes(slugify(prog))}
+                on:change={(e) => valueChanged(e, "progs", slugify(prog))}
+              />
+              {prog}
+            </label>
+          {/each}
+        </div>
+      </div>
+
       <div class="filter-item">
         <h3>UI Elements</h3>
         <div class="filter-options">
@@ -145,6 +164,16 @@
     width: 210px;
   }
 
+  @media (max-width: 500px) {
+    .filter-content-stacked {
+      width: 100%;
+    }
+
+    .filter-item {
+      width: 100%;
+    }
+  }
+
   /* .stacked:first-child {
     margin-bottom: 20px;
   } */
@@ -166,7 +195,7 @@
   .filter-content {
     max-width: 700px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 0px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
