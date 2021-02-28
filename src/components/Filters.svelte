@@ -66,22 +66,6 @@
     <div class="filter-content">
       <div class="filter-content-stacked">
         <div class="filter-item stacked">
-          <h3>Year Released</h3>
-          <div class="filter-options">
-            {#each filters.year as year}
-              <label>
-                <input
-                  type="checkbox"
-                  checked={query.year && query.year.includes(year)}
-                  on:change={(e) => valueChanged(e, "year", year.toString())}
-                />
-                {year}
-              </label>
-            {/each}
-          </div>
-        </div>
-
-        <div class="filter-item stacked">
           <h3>Operating System</h3>
           <div class="filter-options">
             {#each filters.os as os}
@@ -92,6 +76,22 @@
                   on:change={(e) => valueChanged(e, "os", slugify(os))}
                 />
                 {os}
+              </label>
+            {/each}
+          </div>
+        </div>
+
+        <div class="filter-item stacked">
+          <h3>Year Released</h3>
+          <div class="filter-options">
+            {#each filters.year as year}
+              <label>
+                <input
+                  type="checkbox"
+                  checked={query.year && query.year.includes(year)}
+                  on:change={(e) => valueChanged(e, "year", year.toString())}
+                />
+                {year}
               </label>
             {/each}
           </div>
@@ -154,14 +154,14 @@
   .filter-item {
     background-color: white;
     border: 2px solid;
-    width: 210px;
+    width: 230px;
     margin: 10px;
   }
 
   .filter-content-stacked {
     display: flex;
     flex-wrap: wrap;
-    width: 210px;
+    width: 250px;
   }
 
   @media (max-width: 500px) {
@@ -193,12 +193,12 @@
   }
 
   .filter-content {
-    max-width: 700px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 20px 0px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   label {

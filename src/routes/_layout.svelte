@@ -11,10 +11,15 @@
   <slot />
 </main>
 <footer>
-  <div>Built by <a href="https://christianbroms.com">Christian</a></div>
+  <div>Built by <a href="https://christianbroms.com">CB</a></div>
   <div>
-    All Images &copy; their original owners, reproduced under <a
+    All Images &copy; original owners, reproduced under <a
       href="https://en.wikipedia.org/wiki/Fair_use">fair use</a
+    >
+  </div>
+  <div>
+    View this website's <a href="https://github.com/cbroms/classic-ui"
+      >source code</a
     >
   </div>
 </footer>

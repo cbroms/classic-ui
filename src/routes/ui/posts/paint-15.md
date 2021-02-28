@@ -1,9 +1,9 @@
 ---
 title: MacPaint
-os: MacOS System 6
+os: MacOS System 6 (6.0.8)
 year: 1985
-elts: [Buttons]
-program: MacPaint 1.5
+elts: [Buttons, Icons]
+program: MacPaint
 image: /images/paint3.png
 url: https://archive.org/details/mac_Paint_2
 ---

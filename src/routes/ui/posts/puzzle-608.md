@@ -1,6 +1,6 @@
 ---
 title: Puzzle
-os: MacOS System 6
+os: MacOS System 6 (6.0.8)
 year: 1985
 elts: [Buttons]
 program: Puzzle

@@ -1,6 +1,6 @@
 ---
-title: Finder
-os: MacOS System 6
+title: Finder (About)
+os: MacOS System 6 (6.0.8)
 year: 1985
 program: Finder
 elts: []

@@ -1,6 +1,6 @@
 ---
-title: Control Panel
-os: MacOS System 7
+title: Control Panel (General Controls)
+os: MacOS System 7 (7.0.1)
 year: 1991
 program: Control Panel
 elts: [Radio Buttons, Text Inputs]

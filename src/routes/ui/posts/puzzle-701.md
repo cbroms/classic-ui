@@ -1,6 +1,6 @@
 ---
 title: Puzzle
-os: MacOS System 7
+os: MacOS System 7 (7.0.1)
 year: 1991
 elts: [Buttons]
 program: Puzzle

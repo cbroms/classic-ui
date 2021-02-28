@@ -1,6 +1,6 @@
 ---
 title: Scrapbook
-os: MacOS System 6
+os: MacOS System 6 (6.0.8)
 year: 1985
 elts: [Buttons]
 image: /images/scrapbook.png
