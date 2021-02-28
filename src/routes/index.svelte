@@ -32,12 +32,7 @@
   <title>Classic Interfaces</title>
 </svelte:head>
 
-<Filters
-  filters={res.filters}
-  query={res.query}
-  results={res.numResults}
-  total={res.totalEntries}
-/>
+<Filters filters={res.filters} query={res.query} results={res.numResults} />
 <div class="posts">
   {#if res.message}
     <div class="no-results">
@@ -45,7 +40,7 @@
       <p>Couldn't find any interfaces matching your filters.</p>
     </div>
   {:else}
-    {#each res.posts as post}
+    {#each res.posts as post (post.slug)}
       <div class="post-preview">
         <a href="/ui/{post.slug}">
           <Image image={post.image} preview />

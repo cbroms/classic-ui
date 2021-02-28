@@ -7,6 +7,7 @@
   export let filters = { year: [], os: [], elts: [] };
   export let results = 0;
 
+  let queryEltArr = [];
   let open = false;
   let randomNum = Math.floor(Math.random() * 5) + 1;
 
@@ -55,6 +56,12 @@
       goto(newUrl);
     }
   };
+
+  // we have to create an array of all the query values for the elements because
+  // some contain the same words (like "button" and "radio button") so running
+  // includes on the string would show some elements with overlapping words
+  // as active
+  $: queryEltArr = query.elts !== undefined ? query.elts.split(",") : [];
 </script>
 
 {#if open}
@@ -121,7 +128,7 @@
             <label>
               <input
                 type="checkbox"
-                checked={query.elts && query.elts.includes(slugify(elt))}
+                checked={query.elts && queryEltArr.includes(slugify(elt))}
                 on:change={(e) => valueChanged(e, "elts", slugify(elt))}
               />
               {elt}

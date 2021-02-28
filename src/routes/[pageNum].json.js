@@ -131,6 +131,15 @@ const getMatching = (years, oses, elts, progs) => {
   return common;
 };
 
+const defaultResponse = {
+  filters: {
+    year: [...filters.year].sort(),
+    os: [...filters.os].sort(),
+    elts: [...filters.elts],
+    progs: [...filters.prog].sort(),
+  },
+};
+
 export function get(req, res) {
   const { year, os, elts, progs } = req.query;
   const { pageNum } = req.params;
@@ -149,15 +158,6 @@ export function get(req, res) {
     .slice(start, start + postsPerPage)
     .map((slug) => allContent[slug]);
   const isNextPage = matchingContent[start + postsPerPage + 1] !== undefined;
-
-  const defaultResponse = {
-    filters: {
-      year: [...filters.year],
-      os: [...filters.os],
-      elts: [...filters.elts],
-      progs: [...filters.prog],
-    },
-  };
 
   res.writeHead(200, {
     "Content-Type": "application/json",
