@@ -8,7 +8,6 @@
 
   const onLoad = () => {
     loaded = true;
-
     // remove the inital after the load in/out animation is complete
     setTimeout(() => {
       initial = false;
@@ -16,13 +15,19 @@
   };
 </script>
 
-<figure>
-  <a class="image" href={hasCaption ? image.href : null}>
+<figure class:tall={hasCaption && image.vertical}>
+  <a
+    class="image"
+    href={hasCaption ? image.href : null}
+    class:tall={hasCaption && image.vertical}
+  >
     {#if initial}
       <img
         class="initial"
         class:preview
         class:unloaded={loaded}
+        class:naturalHeight={image.horizontal}
+        class:naturalWidth={image.vertical}
         alt={image.text}
         src={image.tiny}
       />
@@ -39,6 +44,7 @@
       <img
         class="final"
         class:preview
+        class:big={hasCaption}
         alt={image.text}
         on:load={onLoad}
         class:loaded
@@ -53,9 +59,14 @@
 <style>
   figure {
     margin: 0;
+    height: 100%;
   }
   img {
     width: 100%;
+  }
+
+  .tall {
+    min-height: 400px;
   }
 
   .preview {
@@ -69,6 +80,12 @@
     display: grid;
     grid-template: 1fr / 1fr;
     place-items: center;
+    height: 100%;
+  }
+
+  .big {
+    max-height: 400px;
+    cursor: zoom-in;
   }
 
   .image > * {
@@ -79,6 +96,19 @@
   .initial {
     filter: blur(10px);
     z-index: 1;
+
+    height: auto;
+    width: auto;
+  }
+
+  .naturalHeight {
+    height: auto;
+    width: 100%;
+  }
+
+  .naturalWidth {
+    height: 100%;
+    width: auto;
   }
 
   @keyframes blur-in {

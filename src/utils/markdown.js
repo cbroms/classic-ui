@@ -15,6 +15,19 @@ const generateImagesFromPath = (imagePath) => {
   // create  the image directory if it doesn't already exist
   if (!fs.existsSync(imageDir)) {
     fs.mkdirSync(imageDir);
+
+    sharp(pathToInput)
+      .metadata()
+      .then((metadata) => {
+        const res = {
+          vertical: metadata.height > metadata.width,
+          horizontal: metadata.height <= metadata.width,
+        };
+        fs.writeFileSync(
+          path.resolve(imageDir + "/meta.json"),
+          JSON.stringify(res)
+        );
+      });
     // TODO check that the images exist (this assumes they do not!)
     sharp(pathToInput)
       .resize(30)
@@ -36,6 +49,7 @@ const generateImagesFromPath = (imagePath) => {
   }
 
   return {
+    meta: initialImageDir + "/meta.json",
     tiny: initialImageDir + "/tiny.png",
     medium: {
       webp: initialImageDir + "/medium.webp",

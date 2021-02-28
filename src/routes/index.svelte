@@ -9,6 +9,15 @@
 
     if (r.status === 200) {
       const json = await r.json();
+
+      if (json.posts) {
+        for (const i in json.posts) {
+          const rmeta = await this.fetch(json.posts[i].image.meta);
+          const meta = await rmeta.json();
+          json.posts[i].image = { ...json.posts[i].image, ...meta };
+        }
+      }
+
       const res = {
         ...json,
         pageNum: parseInt(pageNum),
@@ -93,8 +102,15 @@
   }
   .post-preview {
     width: 326px;
+    height: 275px;
     margin: 20px;
   }
+
+  .post-preview > a {
+    display: block;
+    height: 100%;
+  }
+
   .no-results {
     margin: 0 auto;
     max-width: 600px;

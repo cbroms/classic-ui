@@ -3,10 +3,15 @@
     // the `slug` parameter is available because
     // this file is called [slug].svelte
     const res = await this.fetch(`ui/${params.slug}.json`);
-    const data = await res.json();
+    const post = await res.json();
 
     if (res.status === 200) {
-      return { post: data };
+      for (const i in post.images) {
+        const rmeta = await this.fetch(post.images[i].meta);
+        const meta = await rmeta.json();
+        post.images[i] = { ...post.images[i], ...meta };
+      }
+      return { post };
     } else {
       this.error(res.status, data.message);
     }
@@ -91,16 +96,19 @@
     padding: 20px;
     max-width: 700px;
     width: 100%;
+    min-height: 500px;
   }
 
   .image-wrapper {
     margin-bottom: 80px;
+    height: 100%;
   }
 
   .attributes {
     margin: 0 auto;
     padding: 20px 0;
     display: flex;
+    justify-content: center;
     max-width: 700px;
     width: 100%;
   }
