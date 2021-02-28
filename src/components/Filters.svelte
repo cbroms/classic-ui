@@ -193,6 +193,8 @@
 
   .filter-options {
     padding: 0 20px;
+    max-height: 280px;
+    overflow-y: scroll;
   }
 
   .num-results {

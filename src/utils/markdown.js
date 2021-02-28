@@ -1,6 +1,6 @@
 const path = require("path");
-var fs = require('fs');
-const sharp = require("sharp")
+var fs = require("fs");
+const sharp = require("sharp");
 const marked = require("marked");
 const matter = require("gray-matter");
 const formatDate = require("date-fns/format");
@@ -8,29 +8,45 @@ const formatDate = require("date-fns/format");
 let images = [];
 
 const generateImagesFromPath = (imagePath) => {
-    const initialImageDir = imagePath.split(".")[0]
-    const imageDir = "static" + initialImageDir;
-    const pathToInput = path.resolve("static" + imagePath);
+  const initialImageDir = imagePath.split(".")[0];
+  const imageDir = "static" + initialImageDir;
+  const pathToInput = path.resolve("static" + imagePath);
 
-    // create  the image directory if it doesn't already exist 
-    if (!fs.existsSync(imageDir)){
-        fs.mkdirSync(imageDir);
-        // TODO check that the images exist (this assumes they do not!)
-        sharp(pathToInput).resize(30).toFile(path.resolve(imageDir + "/tiny.png"))
+  // create  the image directory if it doesn't already exist
+  if (!fs.existsSync(imageDir)) {
+    fs.mkdirSync(imageDir);
+    // TODO check that the images exist (this assumes they do not!)
+    sharp(pathToInput)
+      .resize(30)
+      .toFile(path.resolve(imageDir + "/tiny.png"));
 
-        sharp(pathToInput).resize(500).toFile(path.resolve(imageDir + "/medium.webp"))
-        sharp(pathToInput).resize(800).toFile(path.resolve(imageDir + "/large.webp"))
+    sharp(pathToInput)
+      .resize(500)
+      .toFile(path.resolve(imageDir + "/medium.webp"));
+    sharp(pathToInput)
+      .resize(800)
+      .toFile(path.resolve(imageDir + "/large.webp"));
 
-        sharp(pathToInput).resize(500).toFile(path.resolve(imageDir + "/medium.jpg"))
-        sharp(pathToInput).resize(800).toFile(path.resolve(imageDir + "/large.jpg"))
-    }
+    sharp(pathToInput)
+      .resize(500)
+      .toFile(path.resolve(imageDir + "/medium.jpg"));
+    sharp(pathToInput)
+      .resize(800)
+      .toFile(path.resolve(imageDir + "/large.jpg"));
+  }
 
-    return {
-        tiny: initialImageDir + "/tiny.png", 
-        medium: {webp: initialImageDir + "/medium.webp", jpg: initialImageDir + "/medium.webp" }, 
-        large: {webp: initialImageDir + "/large.webp", jpg: initialImageDir + "/large.webp" }, 
-    }
-}
+  return {
+    tiny: initialImageDir + "/tiny.png",
+    medium: {
+      webp: initialImageDir + "/medium.webp",
+      jpg: initialImageDir + "/medium.jpg",
+    },
+    large: {
+      webp: initialImageDir + "/large.webp",
+      jpg: initialImageDir + "/large.jpg",
+    },
+  };
+};
 
 const renderer = new marked.Renderer();
 const linkRenderer = renderer.link;
@@ -54,16 +70,15 @@ renderer.link = (href, title, text) => {
 };
 
 renderer.image = (href, title, text) => {
-
-    const newImages = generateImagesFromPath(href)
-    images.push({
-            href, 
-            title, 
-            text, 
-            ...newImages,
-        })
-    return "<img />"
-}
+  const newImages = generateImagesFromPath(href);
+  images.push({
+    href,
+    title,
+    text,
+    ...newImages,
+  });
+  return "<img />";
+};
 
 marked.setOptions({ renderer });
 
@@ -77,10 +92,12 @@ export default () => ({
     const slug = fileName.split(".")[0];
     let content = rawContent;
 
-    images = []
+    images = [];
 
     // split the html into sections divided by images
-    const html =  marked(content).replace(/^\t{3}/gm, '').split("<img />");
+    const html = marked(content)
+      .replace(/^\t{3}/gm, "")
+      .split("<img />");
     const printDate = formatDate(new Date(date), "MMM D, YYYY");
     const mainImage = generateImagesFromPath(image);
 
@@ -90,9 +107,9 @@ export default () => ({
       html,
       images,
       date,
-      elts, 
-      os, 
-      year, 
+      elts,
+      os,
+      year,
       program,
       url,
       image: mainImage,

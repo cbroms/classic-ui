@@ -19,7 +19,40 @@
 </script>
 
 <svelte:head>
+  <link rel="canonical" href="https://classicinterfaces.com/ui/{post.slug}" />
   <title>{post.title} - Classic Interfaces</title>
+  <meta name="title" content="{post.title} - Classic Interfaces" />
+  <meta
+    name="description"
+    content="{post.title} from {post.os} released in {post.year}. Find this classic interface and more."
+  />
+
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="https://classicinterfaces.com/ui/{post.slug}"
+  />
+  <meta property="og:title" content="{post.title} - Classic Interfaces" />
+  <meta
+    property="og:description"
+    content="{post.title} from {post.os} released in {post.year}. Find this classic interface and more."
+  />
+  <meta
+    property="og:image"
+    content="https://classicinterfaces.com{post.image.large.jpg}"
+  />
+
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://classicinterfaces.com/" />
+  <meta property="twitter:title" content="{post.title} - Classic Interfaces" />
+  <meta
+    property="twitter:description"
+    content="{post.title} from {post.os} released in {post.year}. Find this classic interface and more."
+  />
+  <meta
+    property="twitter:image"
+    content="https://classicinterfaces.com{post.image.large.jpg}"
+  />
 </svelte:head>
 
 <div class="attributes">
