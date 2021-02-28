@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "@sapper/app";
   export let preview = false;
   export let image;
   export let hasCaption = false;
@@ -15,42 +16,42 @@
   };
 </script>
 
-<figure class:tall={hasCaption && image.vertical}>
-  <a
+<figure class="image" class:tall={hasCaption && image.vertical}>
+  <!-- <a
     class="image"
     href={hasCaption ? image.href : null}
     class:tall={hasCaption && image.vertical}
-  >
-    {#if initial}
-      <img
-        class="initial"
-        class:preview
-        class:unloaded={loaded}
-        class:naturalHeight={image.horizontal}
-        class:naturalWidth={image.vertical}
-        alt={image.text}
-        src={image.tiny}
-      />
-    {/if}
-    <picture>
-      <source
-        type="image/webp"
-        srcset="{image.medium.webp} 400w, {image.large.webp}"
-      />
-      <source
-        type="image/jpg"
-        srcset="{image.medium.jpg} 400w, {image.large.jpg}"
-      />
-      <img
-        class="final"
-        class:preview
-        class:big={hasCaption}
-        alt={image.text}
-        on:load={onLoad}
-        class:loaded
-      />
-    </picture>
-  </a>
+  > -->
+  {#if initial}
+    <img
+      class="initial"
+      class:preview
+      class:unloaded={loaded}
+      class:naturalHeight={image.horizontal}
+      class:naturalWidth={image.vertical}
+      alt={image.text}
+      src={image.tiny}
+    />
+  {/if}
+  <picture>
+    <source
+      type="image/webp"
+      srcset="{image.medium.webp} 400w, {image.large.webp}"
+    />
+    <source
+      type="image/jpg"
+      srcset="{image.medium.jpg} 400w, {image.large.jpg}"
+    />
+    <img
+      class="final"
+      class:preview
+      class:big={hasCaption}
+      alt={image.text}
+      on:load={onLoad}
+      on:click={hasCaption ? goto(image.href) : null}
+      class:loaded
+    />
+  </picture>
   {#if hasCaption && image.title}
     <figcaption>{image.title}</figcaption>
   {/if}
