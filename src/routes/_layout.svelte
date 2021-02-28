@@ -43,6 +43,7 @@
     padding: 20px;
 
     display: flex;
+    justify-content: center;
   }
 
   main {

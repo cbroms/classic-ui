@@ -29,7 +29,37 @@
 </script>
 
 <svelte:head>
+  <link rel="canonical" href="https://classicinterfaces.com/" />
   <title>Classic Interfaces</title>
+  <meta name="title" content="Classic Interfaces" />
+  <meta
+    name="description"
+    content="Classic user interfaces from 1980's and 1990's operating systems. Includes interfaces from MacOS System 6, 7, and Windows 3. MacPaint, Calculator, Control Panel, and many more. "
+  />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://classicinterfaces.com/" />
+  <meta property="og:title" content="Classic Interfaces" />
+  <meta
+    property="og:description"
+    content="Classic user interfaces from 1980's and 1990's operating systems. Includes interfaces from MacOS System 6, 7, and Windows 3. MacPaint, Calculator, Control Panel, and many more. "
+  />
+  <meta
+    property="og:image"
+    content="https://classicinterfaces.com/images/paint1/large.jpg"
+  />
+
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://classicinterfaces.com/" />
+  <meta property="twitter:title" content="Classic Interfaces" />
+  <meta
+    property="twitter:description"
+    content="Classic user interfaces from 1980's and 1990's operating systems. Includes interfaces from MacOS System 6, 7, and Windows 3. MacPaint, Calculator, Control Panel, and many more. "
+  />
+  <meta
+    property="twitter:image"
+    content="https://classicinterfaces.com/images/paint1/large.jpg"
+  />
 </svelte:head>
 
 <Filters filters={res.filters} query={res.query} results={res.numResults} />
